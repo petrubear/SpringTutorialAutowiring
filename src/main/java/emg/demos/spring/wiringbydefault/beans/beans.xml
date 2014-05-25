@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byType"
+	default-autowire-candidates="consoleWriter,fileWriter"> <!-- default-autowire-candidates="*Writer" -->
+	<bean id="logger" class="emg.demos.spring.wiringbydefault.Logger"
+		autowire="constructor">
+	</bean>
+
+	<!-- se debe indicar cuales beans se seleccionan para el autowiring
+	con default-autowire-candidates SIN espacios! se puede usar * como *Writer
+	
+	
+	Se puede utilizar el atributo autowire-candidate="false" en el bean que no
+	se debe tomar en cuenta para wiring
+	
+	Se puede utilizar el atributo primary="true" en el bean que se prefiere
+    para wiring entre varios del mismo tipo
+    
+    1 de las 3 posibilidades es suficiente
+	 -->
+	<bean id="consoleWriter" class="emg.demos.spring.wiringbydefault.ConsoleWriter">
+	</bean>
+	<bean id="fileWriter"
+		class="emg.demos.spring.wiringbydefault.FileWriter" primary="true">
+	</bean>
+
+	<bean id="anotherfilewriter"
+		class="emg.demos.spring.wiringbydefault.FileWriter"
+		autowire-candidate="false">
+    </bean>
+</beans>
